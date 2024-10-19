@@ -40,4 +40,74 @@ Follow these steps to install and set up the project on your local machine:
    git clone https://github.com/smilest-soul/DNS-Enumeration-Project.git
    cd DNS-Enumeration-Project
 
+# Project Dependencies
+
+The following Python modules are required for the project to function correctly. You can install them individually or use a `requirements.txt` file for bulk installation.
+
+### Required Python Modules:
+
+1. **`dns.resolver`** (from `dnspython` library):
+   - Used for DNS queries and resolving DNS records.
+   - Install using:
+     ```bash
+     pip install dnspython
+     ```
+
+2. **`requests`**:
+   - For making HTTP requests (used for querying online APIs).
+   - Install using:
+     ```bash
+     pip install requests
+     ```
+
+3. **`flask`**:
+   - Web framework to run the application.
+   - Install using:
+     ```bash
+     pip install Flask
+     ```
+
+4. **`flask_session`**:
+   - For managing sessions in Flask.
+   - Install using:
+     ```bash
+     pip install Flask-Session
+     ```
+
+5. **`reportlab`**:
+   - Used for generating PDF reports.
+   - Install using:
+     ```bash
+     pip install reportlab
+     ```
+
+6. **`dpkt`**:
+   - Library for decoding and encoding of network packets, useful for parsing captured data.
+   - Install using:
+     ```bash
+     pip install dpkt
+     ```
+
+7. **`urllib3`**:
+   - Handles HTTP requests and connections.
+   - Install using:
+     ```bash
+     pip install urllib3
+     ```
+
+---
+
+### Installation Command
+
+You can create a `requirements.txt` file for easy installation of these dependencies:
+
+```bash
+dnspython
+requests
+Flask
+Flask-Session
+reportlab
+dpkt
+urllib3
+
 
