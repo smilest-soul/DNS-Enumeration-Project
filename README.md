@@ -1,62 +1,52 @@
-DNS Enumeration and Vulnerability Analysis
-This project focuses on DNS Enumeration and Vulnerability Analysis using DNSRecon. It automates the process of retrieving DNS records and identifying potential vulnerabilities in domain configurations. The tool is essential for network administrators and security professionals to ensure the integrity and security of DNS infrastructure.
+# DNS Enumeration Project
 
-Description
-DNS (Domain Name System) is a crucial component of the internet, mapping human-readable domain names to machine-readable IP addresses. However, misconfigurations or vulnerabilities in DNS can lead to severe security risks, such as unauthorized zone transfers, DNS spoofing, or phishing attacks.
+This project focuses on DNS Enumeration and Vulnerability Analysis using `DNSRecon`. It automates the process of retrieving DNS records and identifying potential vulnerabilities in domain configurations. This tool is designed for cybersecurity professionals and network administrators who want to strengthen their network security by analyzing DNS setups.
 
-This project provides a Python-based solution that leverages the DNSRecon tool to:
+## Features
 
-Retrieve various types of DNS records (A, MX, NS, SOA, CNAME, etc.).
-Perform reverse DNS lookups for IP addresses.
-Detect DNS misconfigurations, including unsecured zone transfers.
-Output a detailed PDF report for further analysis.
-The project is designed to help identify and mitigate potential vulnerabilities in the DNS infrastructure of organizations or individuals.
+- **Enumerates DNS Records**: A, MX, NS, SOA, CNAME, TXT, and other DNS record types.
+- **Performs Reverse DNS Lookups**: Maps IP addresses back to domain names to detect possible misconfigurations.
+- **Identifies Zone Transfers**: Detects DNS zone transfers, which can expose sensitive domain information.
+- **Scans for DNSSEC Support**: Identifies if the target domain supports DNSSEC (Domain Name System Security Extensions).
+- **Subdomain Enumeration**: Finds subdomains linked to the target domain to assess exposure.
+- **Generates Reports**: Creates PDF reports for easy sharing and future reference.
+- **Vulnerability Detection**: Identifies potential security weaknesses in DNS configurations.
 
-Project Features
-DNS Record Enumeration:
+---
 
-Extracts DNS records such as:
-A (Address) Records
-MX (Mail Exchange) Records
-NS (Name Server) Records
-SOA (Start of Authority) Records
-CNAME (Canonical Name) Records
-TXT (Text) Records
-SRV (Service) Records
-Reverse DNS Lookup:
+## Motivation
 
-Performs reverse DNS lookups, mapping IP addresses back to domain names.
-Zone Transfer Testing:
+DNS vulnerabilities are a prime target for attackers, and misconfigurations can expose sensitive information or lead to service disruptions. This project aims to simplify the DNS enumeration process, automate vulnerability analysis, and provide clear, actionable reports to improve domain security.
 
-Detects vulnerable DNS servers that allow zone transfers, exposing entire domain records to unauthorized users.
-PDF Report Generation:
+---
 
-Compiles the output into a well-formatted PDF report with details of the domain’s DNS configuration and potential vulnerabilities.
-Motivation and Key Challenges
-DNS security is often overlooked, but it is a vital part of an organization’s security posture. Misconfigurations in DNS can lead to attacks like cache poisoning, man-in-the-middle attacks, and data breaches. The motivation for this project stems from the need to automate DNS enumeration and report any identified weaknesses in the DNS setup.
+## Prerequisites
 
-Key challenges include:
+Ensure that you have the following installed on your system:
 
-Ensuring accurate and complete DNS enumeration for a wide range of domain records.
-Handling large-scale zone transfers efficiently.
-Generating a clean, well-structured PDF report for end users.
-System Architecture
-The project follows a modular structure:
+- **Python 3.x**: This project is developed using Python.
+- **Required Python modules**: The project depends on external modules such as `dnsrecon` and `fpdf2`. Install them using the command below:
+  ```bash
+  pip install dnsrecon fpdf2
 
-DNS Enumeration Module: Retrieves DNS records using DNSRecon.
-Vulnerability Analysis Module: Scans for common vulnerabilities like open zone transfers.
-PDF Generation Module: Converts the DNS scan results into a detailed PDF report.
-The architecture ensures that the project is scalable and can be extended to include additional DNS security tests if needed.
 
-Prerequisites
-Before running the project, ensure you have the following installed:
+Installation
+Follow the steps below to set up the project on your local machine:
 
-Python 3.x
-DNSRecon (Python module):
+Clone the Repository:
+
 bash
 Copy code
-pip install dnsrecon
-PDF Generation Libraries (e.g., fpdf2 for generating reports):
+git clone https://github.com/smilest-soul/DNS-Enumeration-Project.git
+cd DNS-Enumeration-Project
+Install Dependencies: Use pip to install all required dependencies from the requirements.txt file:
+
 bash
 Copy code
-pip install fpdf2
+pip install -r requirements.txt
+Check DNSRecon Installation: Verify if dnsrecon is installed and working by running:
+
+bash
+Copy code
+dnsrecon -h
+
