@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DNS Enumeration Tool</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Add the logo image here -->
+        <img src="{{ url_for('static', filename='logo.jpg') }}" alt="DNS Enumeration Tool Logo" class="logo">
+
+        <h1>DNS Enumeration Tool</h1>
+
+        <form method="POST" action="/">
+            <div class="input-group">
+                <label for="domain">Domain Name:</label>
+                <input type="text" id="domain" name="domain" required>
+            </div>
+            <div class="input-group">
+                <label for="nameserver">Nameserver (Optional):</label>
+                <input type="text" id="nameserver" name="nameserver" value="8.8.8.8">
+            </div>
+            <div class="input-group">
+                <label for="timeout">Timeout (seconds):</label>
+                <input type="number" id="timeout" name="timeout" value="3.0" min="1.0" step="0.1">
+            </div>
+
+            <h2>Brute Force</h2>
+            <div class="input-group">
+                <label for="wordlist_path">Wordlist Path:</label>
+                <input type="text" id="wordlist_path" name="wordlist_path">
+            </div>
+            <div class="input-group">
+                <input type="checkbox" id="filter_wildcard" name="filter_wildcard">
+                <label for="filter_wildcard">Filter Wildcard</label>
+            </div>
+
+            <h2>Search Engine Enumeration</h2>
+            <div class="input-group">
+                <input type="checkbox" id="bing" name="search_engine" value="bing" checked>
+                <label for="bing">Bing</label><br>
+                <input type="checkbox" id="yandex" name="search_engine" value="yandex">
+                <label for="yandex">Yandex</label><br>
+                <input type="checkbox" id="crtsh" name="search_engine" value="crtsh" checked>
+                <label for="crtsh">crt.sh</label><br>
+            </div>
+
+            <button type="submit">Enumerate</button>
+        </form>
+
+        <hr>
+        <form method="POST" action="/generate_pdf">
+            <button type="submit">Generate PDF</button>
+        </form>
+        <hr>
+
+        <!-- Displaying Results -->
+        {% if results %}
+        <h2>Results for: {{ results.domain }}</h2>
+
+        <!-- IP Addresses -->
+        <h3>IP Addresses:</h3>
+        <ul>
+            {% for ip in results.ip_addresses %}
+            <li>{{ ip }}</li>
+            {% else %}
+            <li>No IP Addresses Found</li>
+            {% endfor %}
+        </ul>
+
+        <!-- NS Records -->
+        <h3>NS Records:</h3>
+        <ul>
+            {% for ns in results.ns_records %}
+            <li>{{ ns }}</li>
+            {% else %}
+            <li>No NS Records Found</li>
+            {% endfor %}
+        </ul>
+
+        <!-- SRV Records -->
+        <h3>SRV Records:</h3>
+        <ul>
+            {% for srv in results.srv_records %}
+            <li>{{ srv }}</li>
+            {% else %}
+            <li>No SRV Records Found</li>
+            {% endfor %}
+        </ul>
+
+        <!-- MX Records -->
+        <h3>MX Records:</h3>
+        <ul>
+            {% for mx in results.mx_records %}
+            <li>{{ mx.exchange }} (Preference: {{ mx.preference }})</li>
+            {% else %}
+            <li>No MX Records Found</li>
+            {% endfor %}
+        </ul>
+
+        <!-- SOA Records -->
+        <h3>SOA Records:</h3>
+        <ul>
+            {% for soa in results.soa_records %}
+            <li>MNAME: {{ soa.mname }}, RNAME: {{ soa.rname }}, Serial: {{ soa.serial }}, Refresh: {{ soa.refresh }}, Retry: {{ soa.retry }}, Expire: {{ soa.expire }}, Minimum: {{ soa.minimum }}</li>
+            {% else %}
+            <li>No SOA Records Found</li>
+            {% endfor %}
+        </ul>
+
+        <!-- TXT Records -->
+        <h3>TXT Records:</h3>
+        <ul>
+            {% for txt in results.txt_records %}
+            <li>{{ txt }}</li>
+            {% else %}
+            <li>No TXT Records Found</li>
+            {% endfor %}
+        </ul>
+
+        <!-- SPF Records -->
+        <h3>SPF Records:</h3>
+        <ul>
+            {% for spf in results.spf_records %}
+            <li>{{ spf }}</li>
+            {% else %}
+            <li>No SPF Records Found</li>
+            {% endfor %}
+        </ul>
+
+        <!-- Wildcard Resolution -->
+        <p><b>Wildcard Resolution:</b>
+            {% if results.wildcard_enabled %}Enabled{% else %}Not Enabled{% endif %}
+        </p>
+
+        <!-- Display DNSSEC Status -->
+        <h3>DNSSEC Status:</h3>
+        <p>{{ results.dnssec_status }}</p>
+
+        <!-- Display Brute Force Results -->
+        {% if results.bruteforce_results %}
+        <h3>Brute Force Results:</h3>
+        <ul>
+            {% for result in results.bruteforce_results %}
+            <li>{{ result.type }} record: {{ result.name }} - {{ result.address|default(result.target, true) }}</li>
+            {% else %}
+            <li>No Brute Force Results Found</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <!-- Display Search Engine Results -->
+        {% if results.search_engine_results %}
+        <h2>Search Engine Results:</h2>
+        {% for engine, subdomains in results.search_engine_results.items() %}
+        <h3>{{ engine }}:</h3>
+        <ul>
+            {% for subdomain in subdomains %}
+            <li>{{ subdomain }}</li>
+            {% else %}
+            <li>No {{ engine }} Results Found</li>
+            {% endfor %}
+        </ul>
+        {% endfor %}
+        {% endif %}
+        {% endif %}
+
+        <!-- Display Error Messages -->
+        {% if error %}
+        <div class="error">
+            <p>{{ error }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
