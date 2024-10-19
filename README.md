@@ -30,23 +30,14 @@ Ensure that you have the following installed on your system:
   pip install dnsrecon fpdf2
 
 
-Installation
-Follow the steps below to set up the project on your local machine:
+## Installation
 
-Clone the Repository:
+Follow these steps to install and set up the project on your local machine:
 
-bash
-Copy code
-git clone https://github.com/smilest-soul/DNS-Enumeration-Project.git
-cd DNS-Enumeration-Project
-Install Dependencies: Use pip to install all required dependencies from the requirements.txt file:
+1. **Clone the Repository**:
+   First, clone the GitHub repository to your local system:
+   ```bash
+   git clone https://github.com/smilest-soul/DNS-Enumeration-Project.git
+   cd DNS-Enumeration-Project
 
-bash
-Copy code
-pip install -r requirements.txt
-Check DNSRecon Installation: Verify if dnsrecon is installed and working by running:
-
-bash
-Copy code
-dnsrecon -h
 
